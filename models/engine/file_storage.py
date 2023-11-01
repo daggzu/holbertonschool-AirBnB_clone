@@ -1,5 +1,4 @@
 # models/engine/file_storage.py
-
 import json
 
 class FileStorage:
@@ -27,13 +26,13 @@ class FileStorage:
         with open(self.__file_path, "w") as file:
             json.dump(temp_dict, file)
 
-def reload(self):
-    """Deserializes the JSON file to __objects."""
-    try:
-        with open(self.__file_path, "r") as file:
-            self.__objects = json.load(file)
-            # Convert dictionaries back to objects
-            for key, obj in self.__objects.items():
-                self.__objects[key] = eval(obj["__class__"])(**obj)
-    except FileNotFoundError:
-        pass
+    def reload(self):
+        """Deserializes the JSON file to __objects."""
+        try:
+            with open(self.__file_path, "r") as file:
+                self.__objects = json.load(file)
+                # Convert dictionaries back to objects
+                for key, obj in self.__objects.items():
+                    self.__objects[key] = eval(obj["__class__"])(**obj)
+        except FileNotFoundError:
+            pass
