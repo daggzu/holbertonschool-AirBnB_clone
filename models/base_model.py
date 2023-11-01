@@ -1,10 +1,10 @@
 #!/usr/bin/python3
 """BaseModel Module"""
-
 import uuid
 from datetime import datetime
 
 class BaseModel:
+    """BaseModels class"""
 
     def __init__(self):
         """Initialize BaseModel instance"""
