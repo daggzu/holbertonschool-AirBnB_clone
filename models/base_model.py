@@ -9,7 +9,7 @@ class BaseModel:
 
     def __init__(self, *args, **kwargs):
         """Initialize a new BaseModel."""
-        """Check if keyword arguments (kwargs) were provided."""
+        #Check if keyword arguments (kwargs) were provided.
         if kwargs:
             for key, value in kwargs.items():
                 """Skip the '__class__' attribute if present, as it's not used for initialization."""
