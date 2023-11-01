@@ -4,6 +4,7 @@ Unittest classes:
 """
 import unittest
 from datetime import datetime
+from ...models.engine import BaseModel
 
 
 class TestBaseModel_instantiation(unittest.TestCase):
