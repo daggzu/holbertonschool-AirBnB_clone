@@ -15,7 +15,7 @@ class BaseModel:
                 """Skip the '__class__' attribute if present, as it's not used for initialization."""
                 if key == "__class__":
                     pass
-                """Parse and set 'created_at' and 'updated_at' attributes as datetime objects."""
+                #Parse and set 'created_at' and 'updated_at' attributes as datetime objects.
                 elif key == "created_at" or key == "updated_at":
                     setattr(self, key, datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f"))
                 """Set other attributes from kwargs."""
