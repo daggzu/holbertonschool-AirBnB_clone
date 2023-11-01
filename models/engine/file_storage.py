@@ -34,7 +34,6 @@ def reload(self):
             self.__objects = json.load(file)
             # Convert dictionaries back to objects
             for key, obj in self.__objects.items():
-                class_name, obj_id = key.split(".")
                 self.__objects[key] = eval(obj["__class__"])(**obj)
     except FileNotFoundError:
         pass
