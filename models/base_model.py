@@ -22,7 +22,7 @@ class BaseModel:
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
 
-        # Ensure "id," "created_at," and "updated_at" are explicitly initialized.
+        # Ensuring "id," "created_at," and "updated_at" are explicitly initialized.
         self.id = kwargs.get("id", self.id)
         self.created_at = kwargs.get("created_at", self.created_at)
         self.updated_at = kwargs.get("updated_at", self.updated_at)
