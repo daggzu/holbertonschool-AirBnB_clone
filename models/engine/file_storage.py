@@ -28,14 +28,13 @@ class FileStorage:
             json.dump(temp_dict, file)
 
 def reload(self):
-    """Deserializes the JSON file to __objects"""
-    # Try to open the file and load the JSON
+    """Deserializes the JSON file to __objects."""
     try:
         with open(self.__file_path, "r") as file:
-            self.__objects = json.loads(f.read())
+            self.__objects = json.load(file)
             # Convert dictionaries back to objects
             for key, obj in self.__objects.items():
+                class_name, obj_id = key.split(".")
                 self.__objects[key] = eval(obj["__class__"])(**obj)
-    # If the file doesn't exist, do nothing
     except FileNotFoundError:
         pass
