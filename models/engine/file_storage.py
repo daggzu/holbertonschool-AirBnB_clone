@@ -31,7 +31,7 @@ def reload(self):
     """Deserializes the JSON file to __objects"""
     # Try to open the file and load the JSON
     try:
-        with open(self.__file_path, "r") as f:
+        with open(self.__file_path, "r") as file:
             self.__objects = json.loads(f.read())
             # Convert dictionaries back to objects
             for key, obj in self.__objects.items():
