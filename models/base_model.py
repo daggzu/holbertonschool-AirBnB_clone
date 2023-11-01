@@ -2,7 +2,6 @@
 """BaseModel Module"""
 import uuid
 from datetime import datetime
-import models
 
 class BaseModel:
     """BaseModels class"""
@@ -27,8 +26,6 @@ class BaseModel:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
-            # Notify the storage system of the new instance.
-            models.storage.new(self)
 
     def __str__(self):
         """Return string representation"""
