@@ -32,7 +32,7 @@ class FileStorage:
         """Deserializes the JSON file to __objects."""
         try:
             with open(self.__file_path, "r") as file:
-                self.__objects = json.load(file)
+                self.__objects = json.loads(file.read())
                 # Convert dictionaries back to objects
                 for key, obj in self.__objects.items():
                     self.__objects[key] = eval(obj["__class__"])(**obj)
