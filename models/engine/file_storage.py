@@ -1,10 +1,10 @@
-# models/engine/file_storage.py
 import json
 from models.base_model import BaseModel
 
+
 class FileStorage:
     """This class handles the serialization and deserialization of objects to and from a JSON file."""
-    
+
     # Private Attributes
     __file_path = "file.json"  # Path to the JSON file
     __objects = {}  # Dictionary to store objects by <class name>.id
@@ -37,4 +37,3 @@ class FileStorage:
                     self.__objects[key] = eval(obj["__class__"])(**obj)
         except FileNotFoundError:
             pass
-            
