@@ -7,7 +7,7 @@ from models import storage
 from models.base_model import BaseModel
 
 class HBNBCommand(cmd.Cmd):
-    """command line interpreter, entry point"""
+    """Command line interpreter, entry point"""
     prompt = '(hbnb)'
 
     def do_create(self, *args):
@@ -15,7 +15,7 @@ class HBNBCommand(cmd.Cmd):
         args_list = args[0].split()
         if len(args_list) == 0:
             print("** class name missing **")
-        elif args_list[0] not in self.class_dict.keys():
+        elif args_list[0] not in self.class_dict:
             print("** class doesn't exist **")
         else:
             my_model = self.class_dict[args_list[0]]()
@@ -28,16 +28,16 @@ class HBNBCommand(cmd.Cmd):
         args_list = args[0].split()
         if len(args_list) == 0:
             print("** class name missing **")
-        elif args_list[0] not in self.class_dict.keys():
+        elif args_list[0] not in self.class_dict:
             print("** class doesn't exist **")
         elif len(args_list) < 2:
-            print(f"** instance id missing **")
+            print("** instance id missing **")
         else:
             key = f"{args_list[0]}.{args_list[1]}"
             current_dict = storage.all()
             try:
                 print(current_dict[key])
-            except Exception:
+            except KeyError:
                 print("** no instance found **")
 
     def do_destroy(self, *args):
@@ -46,17 +46,17 @@ class HBNBCommand(cmd.Cmd):
         args_list = args[0].split()
         if len(args_list) == 0:
             print("** class name missing **")
-        elif args_list[0] not in self.class_dict.keys():
+        elif args_list[0] not in self.class_dict:
             print("** class doesn't exist **")
         elif len(args_list) < 2:
-            print(f"** instance id missing **")
+            print("** instance id missing **")
         else:
             key = f"{args_list[0]}.{args_list[1]}"
             current_dict = storage.all()
             try:
                 del current_dict[key]
                 storage.save()
-            except Exception:
+            except KeyError:
                 print("** no instance found **")
 
     def do_all(self, *args):
@@ -71,7 +71,7 @@ class HBNBCommand(cmd.Cmd):
             print(print_list)
             return
         class_name = args_list[0]
-        if class_name not in self.class_dict.keys():
+        if class_name not in self.class_dict:
             print("** class doesn't exist **")
         else:
             for obj_tuple in current_dict.items():
@@ -88,14 +88,14 @@ class HBNBCommand(cmd.Cmd):
         args_list = args[0].split()
         if len(args_list) == 0:
             print("** class name missing **")
-        elif args_list[0] not in self.class_dict.keys():
+        elif args_list[0] not in self.class_dict:
             print("** class doesn't exist **")
         elif len(args_list) < 2:
-            print(f"** instance id missing **")
+            print("** instance id missing **")
         elif len(args_list) < 3:
-            print(f"** attribute name missing **")
+            print("** attribute name missing **")
         elif len(args_list) < 4:
-            print(f"** value missing **")
+            print("** value missing **")
         else:
             current_dict = storage.all()
             attr_name = args_list[2]
@@ -103,7 +103,7 @@ class HBNBCommand(cmd.Cmd):
             try:
                 key = f"{args_list[0]}.{args_list[1]}"
                 instance = current_dict[key]
-            except Exception:
+            except KeyError:
                 print("** no instance found **")
                 return
             setattr(instance, attr_name, attr_value)
@@ -117,9 +117,4 @@ class HBNBCommand(cmd.Cmd):
         'EOF command to exit the program'
         return True
 
-    def emptyline(self):
-        pass
-
-
-if __name__ == '__main__':
-    HBNBCommand().cmdloop()
+    def emptyline
