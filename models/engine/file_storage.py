@@ -1,5 +1,6 @@
 import json
 from models.base_model import BaseModel
+from json import dump, load
 
 
 class FileStorage:
@@ -12,28 +13,27 @@ class FileStorage:
     # Methods
     def all(self):
         """Returns the dictionary __objects."""
-        return self.__objects
+        return FileStorage.__objects
 
     def new(self, obj):
         """Sets in __objects the obj with key <obj class name>.id."""
         key = f"{obj.__class__.__name__}.{obj.id}"
-        self.__objects[key] = obj
+        FileStorage.__objects[f'{obj.__class__.__name__}.{obj.id}'] = obj
 
     def save(self):
         """Serializes __objects to the JSON file (path: __file_path)."""
-        temp_dict = {}
-        for key, obj in self.__objects.items():
-            temp_dict[key] = obj.to_dict()
-        with open(self.__file_path, "w") as file:
-            json.dump(temp_dict, file)
+        objects = FileStorage.__objects
+        dict_from_obj = {key: obj.to_dict() for key, obj in objects.items()}
+
+        with open(FileStorage.__file_path, 'w') as file:
+            dump(dict_from_obj, file)
 
     def reload(self):
         """Deserializes the JSON file to __objects."""
         try:
-            with open(self.__file_path, "r") as file:
-                self.__objects = json.loads(file.read())
-                # Convert dictionaries back to objects
-                for key, obj in self.__objects.items():
-                    self.__objects[key] = eval(obj["__class__"])(**obj)
-        except FileNotFoundError:
-            pass
+            with open(FileStorage.__file_path) as file:
+                dict_from_json = load(file)
+                for obj in dict_from_json.values():
+                    self.new(eval(obj['__class__'])(**obj))
+        except Exception:
+            return
