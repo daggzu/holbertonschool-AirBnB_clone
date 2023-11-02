@@ -1,20 +1,13 @@
 #!/usr/bin/python3
 '''Defines the console'''
 import json
+import cmd
+import sys
+from models import storage
 
 class HBNBCommand(cmd.Cmd):
     """command line interpreter, entry point"""
     prompt = '(hbnb)'
-
-    class_dict = {
-        "Amenity": Amenity,
-        "BaseModel": BaseModel,
-        "City": City,
-        "Place": Place,
-        "Review": Review,
-        "State": State,
-        "User": User
-    }
 
     def do_create(self, *args):
         '''Creates instance of class: create BaseModel'''
