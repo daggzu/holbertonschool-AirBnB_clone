@@ -6,6 +6,16 @@ class HBNBCommand(cmd.Cmd):
     """command line interpreter, entry point"""
     prompt = '(hbnb)'
 
+    class_dict = {
+        "Amenity": Amenity,
+        "BaseModel": BaseModel,
+        "City": City,
+        "Place": Place,
+        "Review": Review,
+        "State": State,
+        "User": User
+    }
+
     def do_create(self, *args):
         '''Creates instance of class: create BaseModel'''
         args_list = args[0].split()
