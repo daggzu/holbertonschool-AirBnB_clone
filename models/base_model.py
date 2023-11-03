@@ -28,7 +28,7 @@ class BaseModel:
         self.created_at = kwargs.get("created_at", self.created_at)
         self.updated_at = kwargs.get("updated_at", self.updated_at)
 
-        # Notify the storage system of the new instance.
+        # Notifies the storage system of the new instance.
         models.storage.new(self)
 
     def __str__(self):
