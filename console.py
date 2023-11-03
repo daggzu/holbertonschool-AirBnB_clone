@@ -1,15 +1,15 @@
 import cmd
 from models import storage
 from models.base_model import BaseModel
-from models.user import User  
+from models.user import User
 
 class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
 
     class_dict = {
         "BaseModel": BaseModel,
-        "User": User,
-        # Add other classes later needed here please lol
+        "User": User,  
+        # Add other classes later as needed
     }
 
     def emptyline(self):
@@ -137,3 +137,4 @@ class HBNBCommand(cmd.Cmd):
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
+    
