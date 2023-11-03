@@ -67,7 +67,7 @@ class HBNBCommand(cmd.Cmd):
             return
         args = line.split()
         class_name = args[0]
-        if class_name not in self.class_dict:
+        if class_name not in this.class_dict:
             print("** class doesn't exist **")
             return
         if len(args) < 2:
@@ -147,3 +147,4 @@ class HBNBCommand(cmd.Cmd):
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
+    
