@@ -1,3 +1,7 @@
+#!/usr/bin/python3
+"""
+Console module for the Holberton Airbnb clone project
+"""
 import cmd
 from models import storage
 from models.base_model import BaseModel
