@@ -3,6 +3,7 @@ from models import storage
 from models.base_model import BaseModel
 from models.user import User
 
+
 class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
 
@@ -11,6 +12,9 @@ class HBNBCommand(cmd.Cmd):
         "User": User,
         # Add other classes later as needed
     }
+
+    def emptyline(self):
+        pass
 
     def do_create(self, line):
         """Create a new instance of a specified class"""
@@ -54,7 +58,7 @@ class HBNBCommand(cmd.Cmd):
             return
         args = line.split()
         class_name = args[0]
-        if class_name not in this.class_dict:
+        if class_name not in self.class_dict:
             print("** class doesn't exist **")
             return
         if len(args) < 2:
@@ -79,7 +83,7 @@ class HBNBCommand(cmd.Cmd):
             for obj in all_objects.values():
                 obj_list.append(str(obj))
         else:
-            if args[0] not in this.class_dict:
+            if args[0] not in self.class_dict:
                 print("** class doesn't exist **")
                 return
             class_name = args[0]
@@ -96,7 +100,7 @@ class HBNBCommand(cmd.Cmd):
             return
         args = line.split()
         class_name = args[0]
-        if class_name not in this.class_dict:
+        if class_name not in self.class_dict:
             print("** class doesn't exist **")
             return
         if len(args) < 2:
@@ -115,13 +119,7 @@ class HBNBCommand(cmd.Cmd):
             print("** value missing **")
             return
         attr_name = args[2]
-
-        # Check if the attribute value is enclosed in double quotes
-        if not (args[3].startswith('"') and args[-1].endswith('"')):
-            print("** value missing **")
-            return
-
-        attr_value = args[3][1:-1]  # Remove the double quotes
+        attr_value = args[3]
         instance = all_objects[key]
 
         if hasattr(instance, attr_name):
@@ -138,6 +136,6 @@ class HBNBCommand(cmd.Cmd):
         """EOF command to exit the program"""
         return True
 
+
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
-    
