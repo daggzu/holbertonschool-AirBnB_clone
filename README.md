@@ -22,6 +22,11 @@ Use-cases our project will be able to manage:
 - Update attributes of an object.
 - Destroy an object.
 
+## Flowchart
+
+![flowairjpeg](https://github.com/Natzu83/holbertonschool-zero_day/assets/130172504/00e62d49-8dab-40a4-9b50-ea72f62acce8)
+
+
 ## Learning Objectives
 
 | Objective                                                          | Description                                                                                                                                                                                                                                                           |
