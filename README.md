@@ -121,16 +121,7 @@ $ python -m unittest discover tests
 
 Authors
 
-    Your Name
-    Another Author
-
-License
-
-This project is licensed under the MIT License. See the LICENSE file for details.
-
-rust
+    Diego Gonzalez
+    Omar Velez
 
 
-Make sure to replace `[Your Name](https://github.com/yourgithubusername)` and `[Another Author](https://github.com/anothergithubusername)` with the actual names and GitHub profiles of the authors.
-
-This updated README provides a more structured and comprehensive overview of your project. You can u
