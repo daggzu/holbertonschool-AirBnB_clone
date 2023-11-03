@@ -1,21 +1,26 @@
-#!/usr/bin/python3
-"""
-Console module for the Holberton Airbnb clone project
-"""
 import cmd
-import sys
 from models import storage
 from models.base_model import BaseModel
+from models.user import User  
 
 class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
 
-    def do_create(self, arg):
+    class_dict = {
+        "BaseModel": BaseModel,
+        "User": User,
+        # Add other classes later needed here please lol
+    }
+
+    def emptyline(self):
+        pass
+
+    def do_create(self, line):
         """Create a new instance of a specified class"""
-        args = arg.split()
-        if len(args) == 0:
+        if not line:
             print("** class name missing **")
             return
+        args = line.split()
         class_name = args[0]
         if class_name not in self.class_dict:
             print("** class doesn't exist **")
@@ -24,12 +29,12 @@ class HBNBCommand(cmd.Cmd):
         new_instance.save()
         print(new_instance.id)
 
-    def do_show(self, arg):
+    def do_show(self, line):
         """Prints the string representation of an instance"""
-        args = arg.split()
-        if len(args) == 0:
+        if not line:
             print("** class name missing **")
             return
+        args = line.split()
         class_name = args[0]
         if class_name not in self.class_dict:
             print("** class doesn't exist **")
@@ -39,51 +44,60 @@ class HBNBCommand(cmd.Cmd):
             return
         instance_id = args[1]
         key = "{}.{}".format(class_name, instance_id)
-        if key not in self.all_objects:
-            print("** no instance found **")
-            return
-        print(self.all_objects[key])
-
-    def do_destroy(self, arg):
-        """Deletes an instance based on the class name and id"""
-        args = arg.split()
-        if len(args) == 0:
-            print("** class name missing **")
-            return
-        class_name = args[0]
-        if class_name not in self.class_dict:
-            print("** class doesn't exist **")
-            return
-        if len(args) < 2:
-            print("** instance id missing **")
-            return
-        instance_id = args[1]
-        key = "{}.{}".format(class_name, instance_id)
-        if key not in self.all_objects:
-            print("** no instance found **")
-            return
-        del self.all_objects[key]
-        self.save()
-
-    def do_all(self, arg):
-        """Prints all instances or instances of a specified class"""
-        args = arg.split()
-        if len(args) == 0:
-            obj_list = list(self.all_objects.values())
+        all_objects = storage.all()
+        if key in all_objects:
+            print(all_objects[key])
         else:
-            class_name = args[0]
-            if class_name not in self.class_dict:
+            print("** no instance found **")
+
+    def do_destroy(self, line):
+        """Deletes an instance based on the class name and id"""
+        if not line:
+            print("** class name missing **")
+            return
+        args = line.split()
+        class_name = args[0]
+        if class_name not in self.class_dict:
+            print("** class doesn't exist **")
+            return
+        if len(args) < 2:
+            print("** instance id missing **")
+            return
+        instance_id = args[1]
+        key = "{}.{}".format(class_name, instance_id)
+        all_objects = storage.all()
+        if key in all_objects:
+            del all_objects[key]
+            storage.save()
+        else:
+            print("** no instance found **")
+
+    def do_all(self, line):
+        """Prints all instances or instances of a specified class"""
+        args = line.split()
+        all_objects = storage.all()
+        obj_list = []
+
+        if not line:
+            for obj in all_objects.values():
+                obj_list.append(str(obj))
+        else:
+            if args[0] not in self.class_dict:
                 print("** class doesn't exist **")
                 return
-            obj_list = [obj for obj in self.all_objects.values() if obj.__class__.__name__ == class_name]
+            class_name = args[0]
+            for key, obj in all_objects.items():
+                if key.startswith(class_name + "."):
+                    obj_list.append(str(obj))
+
         print(obj_list)
 
-    def do_update(self, arg):
+    def do_update(self, line):
         """Updates an instance based on the class name and id"""
-        args = arg.split()
-        if len(args) == 0:
+        if not line:
             print("** class name missing **")
             return
+        args = line.split()
         class_name = args[0]
         if class_name not in self.class_dict:
             print("** class doesn't exist **")
@@ -93,7 +107,8 @@ class HBNBCommand(cmd.Cmd):
             return
         instance_id = args[1]
         key = "{}.{}".format(class_name, instance_id)
-        if key not in self.all_objects:
+        all_objects = storage.all()
+        if key not in all_objects:
             print("** no instance found **")
             return
         if len(args) < 3:
@@ -104,29 +119,21 @@ class HBNBCommand(cmd.Cmd):
             return
         attr_name = args[2]
         attr_value = args[3]
-        instance = self.all_objects[key]
-        setattr(instance, attr_name, attr_value)
-        self.save()
+        instance = all_objects[key]
 
-    def do_quit(self, arg):
+        if hasattr(instance, attr_name):
+            setattr(instance, attr_name, attr_value)
+            instance.save()
+        else:
+            print("** attribute doesn't exist **")
+
+    def do_quit(self, line):
         """Quit command to exit the program"""
         return True
 
-    def do_EOF(self, arg):
+    def do_EOF(self, line):
         """EOF command to exit the program"""
         return True
 
-    def emptyline(self):
-        pass
-
-    def precmd(self, line):
-        """Hook method executed just before the command is executed"""
-        if '.' in line:
-            class_name = line.split('.', 1)[0]
-            if class_name in self.class_dict:
-                line = "{} {}".format(class_name, line.split('.', 1)[1])
-        return line
-
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
-    
