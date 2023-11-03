@@ -49,3 +49,4 @@ class BaseModel:
         if isinstance(self.updated_at, datetime):
             dictionary["updated_at"] = self.updated_at.isoformat()
         return dictionary
+
