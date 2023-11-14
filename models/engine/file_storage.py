@@ -14,17 +14,17 @@ from models.place import Place
 
 class FileStorage:
     """Serializes instances to a JSON file and
-    deserializes JSON file to instances"""
+    deserializes JSON file to instances correctly please"""
     # & Private Attributes
-    __file_path = "file.json"  # & Path to the JSON file
-    __objects = {}  # & Empty dictionary to store objects
+    __file_path = "file.json"  
+    __objects = {}
 
     # & Methods
 
     def all(self):
-        """Returns the dictionary __objects
+        """Returns the dictiona
         that contains all objects"""
-        # & Return all objects
+        #self objects
         return self.__objects
 
     def new(self, obj):
