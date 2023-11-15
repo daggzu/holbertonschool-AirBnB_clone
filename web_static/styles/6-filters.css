@@ -14,15 +14,19 @@
     width: 25%;
     margin-left: 45px;
     border-right: 1px solid #DDDDDD;
+    position: relative; /* Added for positioning the popover */
 }
 
-.locations h3, .amenities h3, .locations h2 {
+.locations h3,
+.amenities h3,
+.locations h2 {
     font-weight: 600;
     margin-top: 12px;
     margin-bottom: 5px;
 }
 
-.locations h4, .amenities h4 {
+.locations h4,
+.amenities h4 {
     font-size: 14px;
     font-weight: 400;
     margin-top: 5px;
@@ -35,7 +39,11 @@ ul.popover {
     background-color: #FAFAFA;
     border: 1px solid #DDDDDD;
     border-radius: 4px;
-    list-style-type: none;
+    list-style-type: none; /* Remove bullet points */
+    width: 100%; /* Set width to 100% */
+    top: 100%; /* Position below the parent */
+    left: 0; /* Align with the left edge of the parent */
+    padding: 0; /* Remove padding to ensure alignment */
 }
 
 .locations:hover .popover,
@@ -47,8 +55,16 @@ ul {
     padding: 0;
 }
 
-.locations ul li {
+.locations ul,
+.amenities ul {
+    padding: 0; /* Remove padding to ensure alignment */
+    width: 100%; /* Set width to 100% for nested ul elements */
+}
+
+.locations ul li,
+.amenities ul li {
     padding: 8px;
+    margin: 0; /* Remove margin to ensure alignment */
 }
 
 .locations h2 {
@@ -65,9 +81,7 @@ button {
     border-style: none;
     border-radius: 4px;
     float: right;
-    margin-top: 11px;
-    margin-bottom: 11px;
-    margin-right: 30px;
+    margin: 11px 30px 11px 0;
 }
 
 button:hover {
